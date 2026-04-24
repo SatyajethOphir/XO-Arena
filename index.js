@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { Client, GatewayIntentBits, Collection } = require("discord.js");
+const { Client, GatewayIntentBits, Collection, Events } = require("discord.js");
 const gameManager = require("./sessions/gameManager");
 const { checkWinner, isDraw } = require("./games/tictactoe");
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
@@ -20,8 +20,13 @@ for (const file of commandFiles) {
   }
 }
 
-client.once("ready", () => {
-  console.log(`🔥 XO-Arena ready as ${client.user.tag}`);
+// After the glitch
+// client.once("ready", () => {
+//   console.log(`🔥 XO-Arena ready as ${client.user.tag}`);
+// });
+
+client.on(Events.ClientReady, (client) => {
+    console.log(`Ready! Logged in as ${client.user.tag}`);
 });
 
 client.on("interactionCreate", async (interaction) => {
